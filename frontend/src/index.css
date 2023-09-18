@@ -1,0 +1,141 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    background-color: #fff;
+    font-family: 'Poppins', sans-serif;
+}
+#video{
+    position: fixed;
+    top: 0;
+    z-index: -1;
+    width: 100%;
+    object-fit:contain;
+}
+#sun{
+    position: fixed;
+    top: 0;
+    left: 1rem;
+    z-index: 0;
+    width: 355px;
+    height: 355px;
+}
+.font-poppins{
+    font-family: 'Poppins', sans-serif;
+}
+.font-bungee-outlined{
+    font-family: 'Bungee Outline', cursive;
+}
+.font-bungee-inlined{
+    font-family: 'Bungee Inlined', cursive;
+}
+.text-secondary{
+    color: rgba(0, 0, 0, 0.6)
+}
+.font-600{
+    font-weight: 600;
+}
+.result-shadow{
+    width: 90%;
+    background-color: #000;
+    position: absolute;
+    right: -10;
+    bottom: -10;
+    z-index: 10;
+}
+.table {
+    margin-top: 1rem;
+    border: 1px solid #b3adad;
+    border-collapse: collapse;
+    padding: 5px;
+  }
+  .table th {
+    border: 1px solid #b3adad;
+    padding: 5px;
+    background: #f0f0f0;
+    color: #313030;
+  }
+  .table td {
+    border: 1px solid #b3adad;
+    text-align: center;
+    padding: 5px;
+    background: #ffffff;
+    color: #313030;
+  }
+#container{
+    background-color: transparent;
+    position: fixed;
+    top: 10%;
+    width: 100%;
+    height: 100vh;
+}
+.canvas{
+    height: 175vh;
+    /* width: 90%; */
+    margin: 2rem auto 3rem auto;
+    overflow: visible;
+}
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: -1;
+    background: rgba(0,0,0,0.6);
+}
+#form-file-upload {
+    height: 16rem;
+    width: 28rem;
+    max-width: 100%;
+    text-align: center;
+    position: relative;
+}
+  
+#input-file-upload {
+    display: none;
+}
+
+/* #label-file-upload {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-width: 2px;
+    border-radius: 1rem;
+    border-style: dashed;
+    border-color: #cbd5e1;
+    background-color: #f8fafc;
+} */
+
+.upload-button {
+    cursor: pointer;
+    padding: 0.25rem;
+    font-size: 1rem;
+    border: none;
+    font-family: 'Oswald', sans-serif;
+    background-color: transparent;
+}
+.upload-button:hover {
+    text-decoration-line: underline;
+}
+
+#drag-file-element {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 1rem;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+}
+
+.swiper-button-prev {
+    color: #000; 
+}
+
+.swiper-button-next {
+    color: #000; 
+}
