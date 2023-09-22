@@ -40,10 +40,12 @@ def classify():
             f.save("icdata" + ext)
 
         returndata = getClasses()
-        print(type(returndata))
-        returnjsondata = json.dumps(returndata)
-        print(type(returnjsondata))
-        return returnjsondata
+        jsonData = json.dumps(returndata, indent = 4)
+        # print(jsonData)
+        # print(type(returndata))
+        # returnjsondata = json.dumps(returndata)
+        # print(type(returnjsondata))
+        return jsonData
 
 if __name__ == "__main__":
     app.run(debug= True)

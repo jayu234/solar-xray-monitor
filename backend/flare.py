@@ -259,7 +259,7 @@ class ModelFlares():
         return df
 
 def getClasses():
-    data = Preprocessing(file_path)
+    data = Preprocessing("icdata.lc")
     identified = DetectFlares(data.time, data.rate)
     model = ModelFlares(data.time, data.rate, identified.s5, identified.p5, identified.e1)
     
@@ -271,7 +271,7 @@ def getClasses():
         "calculated_end_times": model.e_calc,
         "pre_flare_count_rates": model.data["Pre-Flare Count Rate"].tolist(),
         "total_count_rates": model.data["Total Count Rate"].tolist(),
-        "flare_classes": model.data['Class'].unique(),
+        "flare_classes": model.data['Class'].unique().tolist(),
     }
     
     # Testing code goes here

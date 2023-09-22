@@ -22,7 +22,7 @@ const style = {
     ":focus-visible": { outline: "none" }
 };
 
-function UploadModal({ open, setOpen, data, setData }) {
+function UploadModal({ open, setOpen, data, setData, operation }) {
     const [dragActive, setDragActive] = useState(false);
     const [uploading, setUploading] = useState(false);
     const inputRef = React.useRef(null);
@@ -74,7 +74,8 @@ function UploadModal({ open, setOpen, data, setData }) {
             const formData = new FormData();
             formData.append("file", files[0]);
             try {
-                const res = await axios.post("http://localhost:5000/upload", formData, {
+                const url = type === ""
+                const res = await axios.post(`http://localhost:5000/${operation}`, formData, {
                     headers: {
                         "Content-Type": "multipart/form-data",
                     }
@@ -102,7 +103,7 @@ function UploadModal({ open, setOpen, data, setData }) {
         // return () => {
         //     clearInterval(intervalId);
         // };
-        console.log(currentStatusIndex);
+        // console.log(currentStatusIndex);
         const timeOutId = setTimeout(()=>{
             setCurrentStatusIndex((currentStatusIndex+1)%3)
         }, 10000);

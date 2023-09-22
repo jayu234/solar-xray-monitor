@@ -4,9 +4,10 @@ import UploadModal from './Modal';
 
 function Upload({data, setData}) {
     const [open, setOpen] = React.useState(false);
+    const [type, setType] = React.useState("");
     return (
         <Container sx={{marginBottom: "8rem"}}>
-            {open && <UploadModal open={open} setOpen={setOpen} data={data} setData={setData}/>}
+            {open && <UploadModal open={open} setOpen={setOpen} data={data} setData={setData} operation={type}/>}
             {/* <-------------- Analyzation --------------> */}
             <Grid container mt={10} justifyContent={"space-between"}>
                 <Grid item xs={6}>
@@ -18,13 +19,13 @@ function Upload({data, setData}) {
                     </Typography>
                 </Grid>
                 <Grid item xs={2}>
-                    <Button sx={{ fontSize: "16px", color: "#1D2029", border: ".10526em solid #1D2029", textTransform: "none", borderRadius: "0", fontFamily: 'inherit', paddingY: "1rem", paddingX: "2rem", ":hover": { backgroundColor: "#1D2029", color: "white" } }} onClick={() => { setOpen(true) }}>Try it out</Button>
+                    <Button sx={{ fontSize: "16px", color: "#1D2029", border: ".10526em solid #1D2029", textTransform: "none", borderRadius: "0", fontFamily: 'inherit', paddingY: "1rem", paddingX: "2rem", ":hover": { backgroundColor: "#1D2029", color: "white" } }} onClick={() => {setType("upload"); setOpen(true) }}>Try it out</Button>
                 </Grid>
             </Grid>
             {/* <-------------- Classification --------------> */}
             <Grid container mt={10} justifyContent={"space-between"}>
                 <Grid item xs={2}>
-                    <Button sx={{ fontSize: "16px", color: "#1D2029", border: ".10526em solid #1D2029", textTransform: "none", borderRadius: "0", fontFamily: 'inherit', paddingY: "1rem", paddingX: "2rem", ":hover": { backgroundColor: "#1D2029", color: "white" } }} onClick={() => { setOpen(true) }}>Try it out</Button>
+                    <Button sx={{ fontSize: "16px", color: "#1D2029", border: ".10526em solid #1D2029", textTransform: "none", borderRadius: "0", fontFamily: 'inherit', paddingY: "1rem", paddingX: "2rem", ":hover": { backgroundColor: "#1D2029", color: "white" } }} onClick={() => {setType("classify"); setOpen(true) }}>Try it out</Button>
                 </Grid>
                 <Grid item xs={6}>
                     <Typography mb={4} fontSize={36} fontFamily={"inherit"}>
