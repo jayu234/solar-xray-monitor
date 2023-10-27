@@ -6,7 +6,7 @@ import Overview from "../components/Overview"
 import Upload from "../components/Upload"
 import TheSun from "../components/TheSun"
 import { motion, useScroll, useTransform } from "framer-motion"
-import TheMoon from './TheMoon'
+// import TheMoon from './TheMoon'
 // import TheMoon from "../components/TheMoonModel"
 
 
