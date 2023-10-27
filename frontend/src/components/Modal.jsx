@@ -74,7 +74,6 @@ function UploadModal({ open, setOpen, data, setData, operation }) {
             const formData = new FormData();
             formData.append("file", files[0]);
             try {
-                const url = type === ""
                 const res = await axios.post(`http://localhost:5000/${operation}`, formData, {
                     headers: {
                         "Content-Type": "multipart/form-data",
@@ -84,7 +83,7 @@ function UploadModal({ open, setOpen, data, setData, operation }) {
                 console.log({ ...res.data, fileName: name, fileDate: date });
                 setOpen(false);
                 setDragActive(false);
-                navigate("/result");
+                operation==='analyze' ? navigate("/analyze") : navigate("/classify");
                 setUploading(false);
             } catch (err) {
                 alert("There was a problem with the server");

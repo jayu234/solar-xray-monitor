@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Box, Button } from "@mui/material";
 
-const DataAsCSV = ({ data }) => {
+const ClassificationCSV = ({ data }) => {
     const [peakarray, setpeakarray] = useState([]);
 
     useEffect(() => {
@@ -32,29 +32,31 @@ const DataAsCSV = ({ data }) => {
                 <thead className="thead-dark">
                     <tr>
                         <th style={{ backgroundColor: "#fff" }}>Sl No.</th>
-                        <th style={{ backgroundColor: "#fff" }}> Peak Flare occurrence time</th>
-                        <th style={{ backgroundColor: "#fff" }}>Count/s</th>
-                        <th style={{ backgroundColor: "#fff" }}>Starting Time</th>
-                        <th style={{ backgroundColor: "#fff" }}>Ending time</th>
-                        <th style={{ backgroundColor: "#fff" }}>Rise Time</th>
-                        <th style={{ backgroundColor: "#fff" }}> Decay Time</th>
-                        <th style={{ backgroundColor: "#fff" }}> Total Time</th>
+                        <th style={{ backgroundColor: "#fff" }}>Observed Start Time</th>
+                        <th style={{ backgroundColor: "#fff" }}>Peak Time</th>
+                        <th style={{ backgroundColor: "#fff" }}>Observed End Time</th>
+                        <th style={{ backgroundColor: "#fff" }}>Calculated Start TIme</th>
+                        <th style={{ backgroundColor: "#fff" }}>Calculated End Time</th>
+                        <th style={{ backgroundColor: "#fff" }}>Pre-Flare Count Rate</th>
+                        <th style={{ backgroundColor: "#fff" }}>Total Count Rate</th>
+                        <th style={{ backgroundColor: "#fff" }}>Class</th>
                     </tr>
                 </thead>
 
-                {data.time_of_occurances ? (
-                    peakarray.map((ele, idx) => (
+                {data.calculated_end_times ? (
+                    data.calculated_end_times.map((ele, idx) => (
                         <>
                             <tr>
                                 <td>{idx + 1}</td>
-                                <td>{ele.x}</td>
-                                <td>{ele.y}</td>
-                                <td>{data.left[idx]}</td>
-                                <td>{data.right[idx]}</td>
-                                <td>{data.rise_time[idx]}</td>
-                                <td>{data.decay_time[idx]}</td>
-                                <td>{data.rise_time[idx] + data.decay_time[idx]}</td>
-                            </tr>{" "}
+                                <td>{data.observed_start_times[idx]}</td>
+                                <td>{data.peak_times[idx]}</td>
+                                <td>{data.observed_end_times[idx]}</td>
+                                <td>{data.calculated_start_times[idx]}</td>
+                                <td>{data.calculated_end_times[idx]}</td>
+                                <td>{data.pre_flare_count_rates[idx]}</td>
+                                <td>{data.total_count_rates[idx]}</td>
+                                <td>{data.class[idx]}</td>
+                            </tr>
                         </>
                     ))
                 ) : (
@@ -118,4 +120,4 @@ const DataAsCSV = ({ data }) => {
     }
 };
 
-export default DataAsCSV;
+export default ClassificationCSV;

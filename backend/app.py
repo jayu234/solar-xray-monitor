@@ -14,7 +14,7 @@ CORS(app)
 def hello_world():
     return "<p>Hello, World!</p>"
 
-@app.route("/upload", methods = ['POST'])
+@app.route("/analyze", methods = ['POST'])
 def uploader():
     if request.method == 'POST':
         f = request.files['file']
@@ -27,24 +27,34 @@ def uploader():
         print(type(returndata))
         returnjsondata = json.dumps(returndata)
         print(type(returnjsondata))
+        
+        if os.path.isfile("icdata.lc"): 
+            os.remove("icdata.lc")
+        if os.path.isfile("icdata.cdf"): 
+            os.remove("icdata.cdf")
+        if os.path.isfile("icdata.txt"): 
+            os.remove("icdata.txt")
+
         return returnjsondata
 
 
 @app.route("/classify", methods = ['POST'])
 def classify():
     if request.method == 'POST':
-        if not os.path.isfile("icdata.lc"):
-            f = request.files['file']
-            ext = os.path.splitext(f.filename)[-1]
-            # f.save(secure_filename(f.filename))
-            f.save("icdata" + ext)
+        f = request.files['file']
+        ext = os.path.splitext(f.filename)[-1]
+        f.save("icdata" + ext)
 
         returndata = getClasses()
         jsonData = json.dumps(returndata, indent = 4)
-        # print(jsonData)
-        # print(type(returndata))
-        # returnjsondata = json.dumps(returndata)
-        # print(type(returnjsondata))
+
+        if os.path.isfile("icdata.lc"): 
+            os.remove("icdata.lc")
+        if os.path.isfile("icdata.cdf"): 
+            os.remove("icdata.cdf")
+        if os.path.isfile("icdata.txt"): 
+            os.remove("icdata.txt")
+
         return jsonData
 
 if __name__ == "__main__":

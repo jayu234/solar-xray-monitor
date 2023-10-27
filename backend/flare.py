@@ -74,7 +74,7 @@ class Preprocessing():
                 time.append(x_new)
                 rate.append(y_new)
         return time, rate
-
+    
     def __interpolate(self):
         x = []
         y = []
@@ -86,7 +86,46 @@ class Preprocessing():
         func = interp1d(x, y, fill_value='extrapolate', kind='linear')
         y_new = func(x_new)
         return x_new, y_new
+    
+    def plot_raw_data(self):
+        plt.figure(figsize=(30, 10))
+        plt.title("Raw Data")
+        plt.xlabel("Time (in sec)")
+        plt.ylabel("Count Rate")
+        plt.scatter(self.__raw_time, self.__raw_rate, s=0.3)
+        plt.grid()
+        plt.savefig('../frontend/public/raw_data.png') 
 
+    def plot_individual_intervals(self):
+        plt.figure(figsize=(30, 10))
+        plt.title("Individual Interval Data")
+        plt.xlabel("Time (in sec)")
+        plt.ylabel("Count Rate")
+        for i in range(len(self.__arr_time)):
+            plt.scatter(self.__arr_time[i], self.__arr_rate[i], s=0.3)
+        plt.grid()
+        plt.savefig('../frontend/public/individual_intervals.png') 
+
+
+    def plot_smoothened_intervals(self):
+        plt.figure(figsize=(30, 10))
+        plt.title("Smoothened Interval Data")
+        plt.xlabel("Time (in sec)")
+        plt.ylabel("Count Rate")
+        for i in range(len(self.__smooth_time)):
+            plt.scatter(self.__smooth_time[i], self.__smooth_rate[i], s=0.1)
+        plt.grid()
+        plt.savefig('../frontend/public/smoothened_intervals.png')
+
+    def plot_interpolated_data(self):
+        plt.figure(figsize=(30, 10))
+        plt.title("Linearly Interpolated Data")
+        plt.xlabel("Time (in sec)")
+        plt.ylabel("Count Rate")
+        plt.plot(self.time, self.rate)
+        plt.grid()
+        plt.savefig('../frontend/public/interpolated_data.png')
+    
 class DetectFlares():
     def __init__(self, time, rate):
         self.time, self.rate = time, rate
@@ -262,7 +301,26 @@ def getClasses():
     data = Preprocessing("icdata.lc")
     identified = DetectFlares(data.time, data.rate)
     model = ModelFlares(data.time, data.rate, identified.s5, identified.p5, identified.e1)
-    
+
+    data_as_table = fits.open('icdata.lc')
+    Data = data_as_table[1].data
+    rows = Table(Data)
+
+    class_total_times = {}
+
+    for index, row in model.data.iterrows():
+        class_name = row['Class']
+        total_time = row['Calculated End Time'] - row['Calculated Start TIme']
+        
+        # Add the total time to the corresponding class's total
+        if class_name in class_total_times:
+            class_total_times[class_name] += total_time
+        else:
+            class_total_times[class_name] = total_time
+    data.plot_raw_data()
+    data.plot_individual_intervals()
+    data.plot_smoothened_intervals()
+    data.plot_interpolated_data()
     result_dict = {
         "observed_start_times": model.s,
         "peak_times": model.p,
@@ -272,6 +330,10 @@ def getClasses():
         "pre_flare_count_rates": model.data["Pre-Flare Count Rate"].tolist(),
         "total_count_rates": model.data["Total Count Rate"].tolist(),
         "flare_classes": model.data['Class'].unique().tolist(),
+        "rows": rows.as_array().tolist(),
+        "class": model.data['Class'].tolist(),
+        "y": model.data['Class'].value_counts().to_dict(),
+        "class_total_time": class_total_times
     }
     
     # Testing code goes here
